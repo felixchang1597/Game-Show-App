@@ -10,8 +10,8 @@ var lose = document.getElementById("lose_banner");
 var phrases = ["tiger", "lion", "elephant", "bear", "moose"];
 
 function getRandomPhraseAsArray(arr) {
-    var random = Math.random() * 5;
-    return arr.split('');
+    var random = parseInt(Math.random() * 5);
+    return arr[random].split('');
 }
 
 //this is the display function
@@ -25,22 +25,29 @@ function addPhraseToDisplay(arr) {
 }
 
 function checkLetter(btn) {
+    var count = 0;
     var letter = document.getElementsByClassName("letter");
-
     for (var i = 0; i < letter.length; i++) {
-        if (btn == letter[i]) {
+        if (btn.toLowerCase() === letter[i].innerText.toLowerCase()) {
             letter[i].classList.add("show");
-            return letter[i];
-        } else {
-            return null;
+            count++;
         }
+    }
+
+    if (count == 0) {
+        document.getElementsByClassName("tries")[missed].style.display = "none";
+        missed += 1;
+        return null;
+    } else {
+        return btn;
     }
 }
 
 function checkWin() {
     if (missed == 5) {
         lose.style.display = "";
-    } else if (document.getElementsByClassName("show").length === document.getElementsByClassName("letters").length) {
+    } else if (document.getElementsByClassName("show").length === document.getElementsByClassName("letter").length) {
+        console.log(document.getElementsByClassName("show").length);
         win.style.display = "";
     }
 }
@@ -62,6 +69,6 @@ document.addEventListener("keypress", (event) => {
             document.querySelectorAll("button")[i].classList.add("chosen");
         }
     }
-    var letterFound = checkLetter(keyBoardChosenKey);
+    checkLetter(keyBoardChosenKey);
     checkWin();
 })
