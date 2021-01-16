@@ -10,7 +10,7 @@ var lose = document.getElementById("lose_banner");
 var phrases = ["tiger", "lion", "elephant", "bear", "moose"];
 
 function getRandomPhraseAsArray(arr) {
-    var random = parseInt(Math.random() * 5);
+    var random = parseInt(Math.floor(Math.random() * arr.length));
     return arr[random].split('');
 }
 
